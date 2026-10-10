@@ -3,31 +3,38 @@ import { Picture } from 'astro:assets';
 import { testimonial, images } from '../data/site';
 ---
 
-<section class="section-pad bg-night">
+<section id="reviews" class="section-pad">
   <div class="container-x">
-    <figure class="reveal m-0 grid items-center gap-10 md:grid-cols-2 md:gap-20">
-      <div>
-        <div aria-hidden="true" class="mb-2 font-display text-[4rem] leading-none text-accent-light/70">&ldquo;</div>
-        <blockquote class="m-0 mb-7 font-display text-[clamp(1.15rem,2.2vw,1.5rem)] font-light italic leading-[1.65] text-white/85">
+    <div class="grid items-stretch gap-4 md:grid-cols-12 md:gap-5">
+      <div class="reveal-left md:col-span-4">
+        <div class="glass h-full rounded-[2rem] p-2.5">
+          <Picture
+            src={images.testimonial}
+            alt={testimonial.alt}
+            inferSize
+            widths={[400, 640, 900]}
+            sizes="(min-width: 768px) 30vw, 92vw"
+            formats={['avif', 'webp']}
+            fallbackFormat="jpeg"
+            loading="lazy"
+            pictureAttributes={{ class: 'block h-full' }}
+            class="aspect-[4/5] size-full rounded-[1.5rem] object-cover md:aspect-auto"
+          />
+        </div>
+      </div>
+
+      <figure class="glass reveal-right relative m-0 flex flex-col justify-center overflow-hidden rounded-[2rem] p-8 md:col-span-8 md:p-14">
+        <div class="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-rose/15 blur-3xl"></div>
+        <p class="label relative mb-6">Khách hàng nói gì</p>
+        <div aria-hidden="true" class="relative mb-2 text-[4rem] font-light leading-none text-champagne/70">&ldquo;</div>
+        <blockquote class="relative m-0 mb-8 text-[clamp(1.2rem,2.3vw,1.7rem)] font-light leading-[1.6] tracking-[-0.01em] text-ivory">
           {testimonial.quote}
         </blockquote>
-        <figcaption>
-          <p class="mb-1 text-[0.85rem] font-medium tracking-[0.06em] text-white">{testimonial.name}</p>
-          <p class="text-[0.72rem] uppercase tracking-[0.1em] text-accent-light">{testimonial.detail}</p>
+        <figcaption class="relative border-t border-white/15 pt-5">
+          <p class="mb-0.5 font-medium text-ivory">{testimonial.name}</p>
+          <p class="text-[0.78rem] uppercase tracking-[0.12em] text-champagne">{testimonial.detail}</p>
         </figcaption>
-      </div>
-      <Picture
-        src={images.testimonial}
-        alt={testimonial.alt}
-        inferSize
-        widths={[400, 640, 900]}
-        sizes="(min-width: 768px) 45vw, 0px"
-        formats={['avif', 'webp']}
-        fallbackFormat="jpeg"
-        loading="lazy"
-        pictureAttributes={{ class: 'hidden md:block' }}
-        class="aspect-[4/5] w-full object-cover"
-      />
-    </figure>
+      </figure>
+    </div>
   </div>
 </section>

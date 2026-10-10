@@ -2,30 +2,25 @@
 import { stats } from '../data/site';
 ---
 
-<section class="border-b border-black/5 bg-white" aria-label="Con số nổi bật">
-  <div class="container-x">
-    <dl class="flex flex-wrap">
-      {stats.map((s, i) => (
-        <div
-          class="reveal relative flex flex-[1_1_50%] flex-col-reverse px-6 py-9 text-center md:flex-[1_1_25%] md:py-11 [&:not(:last-child)]:after:absolute [&:not(:last-child)]:after:right-0 [&:not(:last-child)]:after:top-[28%] [&:not(:last-child)]:after:h-[44%] [&:not(:last-child)]:after:w-px [&:not(:last-child)]:after:bg-black/10 [&:not(:last-child)]:after:content-[''] max-md:[&:nth-child(2)]:after:hidden"
-          style={`--d:${0.08 + i * 0.12}s`}
-        >
-          <dt class="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-muted">
-            {s.label}
-          </dt>
-          <!-- Số cuối cùng có sẵn trong HTML. Hiệu ứng đếm chỉ chạy khi JS bật. -->
-          <dd
-            class="m-0 font-display text-[clamp(2rem,3.5vw,2.8rem)] leading-tight tracking-[-0.02em] text-ink"
-            data-count={s.value}
-            data-suffix={s.suffix}
-          >
-            {s.value.toLocaleString('vi-VN')}{s.suffix}
-          </dd>
-        </div>
-      ))}
-    </dl>
-  </div>
-</section>
+<!-- Bốn con số uy tín, đặt ngay trong hero để khách thấy trước khi cuộn -->
+<dl class="m-0 grid grid-cols-2 gap-3 md:grid-cols-4">
+  {stats.map((s, i) => (
+    <div
+      class="glass reveal flex flex-col-reverse rounded-2xl px-4 py-4 text-center md:py-5"
+      style={`--d:${0.1 + i * 0.1}s`}
+    >
+      <dt class="mt-1 text-[0.7rem] font-medium uppercase tracking-[0.12em] text-ivory/80">{s.label}</dt>
+      <!-- Số cuối cùng có sẵn trong HTML. Hiệu ứng đếm chỉ chạy khi JS bật. -->
+      <dd
+        class="m-0 text-[clamp(1.6rem,3vw,2.2rem)] font-light leading-tight tracking-[-0.02em] text-champagne"
+        data-count={s.value}
+        data-suffix={s.suffix}
+      >
+        {s.value.toLocaleString('vi-VN')}{s.suffix}
+      </dd>
+    </div>
+  ))}
+</dl>
 
 <script>
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

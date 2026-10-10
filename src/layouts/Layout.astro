@@ -32,7 +32,7 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#2c2825" />
+    <meta name="theme-color" content="#150f10" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={images.hero} />
@@ -46,6 +46,7 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
+    <div class="aurora" aria-hidden="true"></div>
     <slot />
   </body>
 </html>

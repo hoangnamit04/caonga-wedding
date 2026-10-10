@@ -1,6 +1,9 @@
 # Cao Nga Wedding
 
 Trang giới thiệu dịch vụ trang trí tiệc cưới. Astro, Tailwind CSS, site tĩnh phục vụ bằng nginx.
+Phong cách Glassmorphism, một font duy nhất là Be Vietnam Pro.
+
+Quyết định về sản phẩm, thiết kế, phát triển và triển khai nằm trong [docs/DESIGN-BRIEF.md](docs/DESIGN-BRIEF.md).
 
 ## Chạy trên máy
 

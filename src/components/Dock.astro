@@ -1,0 +1,56 @@
+---
+import { site } from '../data/site';
+
+// Thanh liên hệ nhanh. Điện thoại: viên thuốc kính ở giữa đáy màn hình, gần ngón cái,
+// có nhãn chữ. Máy tính: cột biểu tượng ở góc phải dưới.
+const items = [
+  {
+    label: 'Gọi',
+    title: 'Gọi điện tư vấn',
+    href: `tel:${site.phone}`,
+    external: false,
+    primary: true,
+    icon: 'M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z',
+  },
+  {
+    label: 'Zalo',
+    title: 'Nhắn tin qua Zalo',
+    href: site.zalo,
+    external: true,
+    primary: false,
+    icon: 'M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.7-.8L3 21l1.9-5A8.4 8.4 0 1 1 21 11.5z',
+  },
+  {
+    label: 'Messenger',
+    title: 'Nhắn tin qua Messenger',
+    href: site.messenger,
+    external: true,
+    primary: false,
+    icon: 'M12 3C7 3 3 6.7 3 11.3c0 2.6 1.3 4.9 3.3 6.4V21l3-1.7c.8.2 1.7.3 2.7.3 5 0 9-3.7 9-8.3S17 3 12 3zm1 10.7-2.3-2.4-4.4 2.4 4.8-5.1 2.3 2.4 4.4-2.4-4.8 5.1z',
+  },
+];
+---
+
+<aside
+  class="glass-nav fixed bottom-4 left-1/2 z-[900] flex -translate-x-1/2 items-center gap-1 rounded-full p-1.5 md:bottom-8 md:left-auto md:right-7 md:translate-x-0 md:flex-col"
+  aria-label="Liên hệ nhanh"
+>
+  {items.map((it) => (
+    <a
+      href={it.href}
+      title={it.title}
+      aria-label={it.title}
+      target={it.external ? '_blank' : undefined}
+      rel={it.external ? 'noopener noreferrer' : undefined}
+      class:list={[
+        'flex h-11 items-center justify-center gap-2 rounded-full px-4 text-[0.82rem] font-medium transition hover:-translate-y-0.5 md:size-12 md:px-0',
+        it.primary ? 'bg-gradient-to-br from-[#f4e4c9] to-[#e2c29a] text-[#2a1d1a]' : 'text-ivory hover:bg-white/12',
+      ]}
+    >
+      <svg viewBox="0 0 24 24" class="size-[1.15rem] fill-none stroke-current stroke-[1.7]" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d={it.icon}></path>
+      </svg>
+      <span class="md:sr-only">{it.label}</span>
+    </a>
+  ))}
+</aside>

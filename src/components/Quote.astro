@@ -1,0 +1,19 @@
+---
+import { banner } from '../data/site';
+---
+
+<!-- Câu trích dẫn chữ thuần trên kính: ảnh gốc là ảnh dọc và rất sáng,
+     nên không đặt chữ lên ảnh để tránh khó đọc và bị cắt xén. -->
+<section class="py-8 md:py-16" aria-label="Triết lý">
+  <div class="container-x">
+    <figure class="glass reveal relative m-0 overflow-hidden rounded-[2rem] px-7 py-14 text-center md:px-20 md:py-24">
+      <div class="pointer-events-none absolute -left-20 -top-24 size-72 rounded-full bg-rose/20 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -right-20 size-72 rounded-full bg-champagne/20 blur-3xl"></div>
+
+      <div aria-hidden="true" class="relative mx-auto mb-4 text-[4.5rem] font-light leading-none text-champagne/70">&ldquo;</div>
+      <blockquote class="relative mx-auto m-0 max-w-[820px] text-[clamp(1.4rem,3.2vw,2.35rem)] font-light leading-[1.4] tracking-[-0.015em] text-ivory">
+        {banner.text}
+      </blockquote>
+    </figure>
+  </div>
+</section>

@@ -3,43 +3,40 @@ import { Picture } from 'astro:assets';
 import { about, images } from '../data/site';
 ---
 
-<section id="about" class="section-pad overflow-x-clip bg-paper">
-  <div class="container-x grid items-center gap-12 md:grid-cols-[3fr_2fr] md:gap-20">
-    <div class="reveal-left relative">
+<section id="about" class="section-pad overflow-x-clip">
+  <div class="container-x grid items-center gap-10 md:grid-cols-12 md:gap-0">
+    <div class="reveal-left relative md:col-span-6">
       <Picture
         src={images.about}
         alt={about.alt}
         inferSize
         widths={[480, 800, 1100]}
-        sizes="(min-width: 768px) 55vw, 100vw"
+        sizes="(min-width: 768px) 50vw, 100vw"
         formats={['avif', 'webp']}
         fallbackFormat="jpeg"
         loading="lazy"
-        class="aspect-[4/5] w-full object-cover"
+        pictureAttributes={{ class: 'block' }}
+        class="aspect-[4/5] w-full rounded-[2rem] border border-white/15 object-cover shadow-[0_30px_80px_rgb(0_0_0/0.5)]"
       />
       <Picture
         src={images.aboutFloat}
         alt={about.altFloat}
         inferSize
-        widths={[300, 500, 700]}
-        sizes="(min-width: 768px) 25vw, 0px"
+        widths={[240, 400, 560]}
+        sizes="(min-width: 768px) 18vw, 0px"
         formats={['avif', 'webp']}
         fallbackFormat="jpeg"
         loading="lazy"
-        pictureAttributes={{
-          class:
-            'absolute -bottom-8 -right-8 hidden w-[48%] border-[6px] border-paper shadow-[0_20px_60px_rgb(0_0_0/0.08)] md:block',
-        }}
-        class="aspect-[4/3] w-full object-cover"
+        pictureAttributes={{ class: 'absolute -bottom-10 -left-5 hidden w-[34%] md:block' }}
+        class="aspect-[4/5] w-full rounded-2xl border-[5px] border-white/25 object-cover shadow-[0_20px_60px_rgb(0_0_0/0.5)]"
       />
     </div>
 
-    <div class="reveal-right max-w-[440px]">
+    <div class="reveal-right glass-dark relative z-10 rounded-[2rem] p-7 md:col-span-6 md:-ml-24 md:p-12">
       <p class="label">{about.label}</p>
-      <div class="rule my-4"></div>
-      <h2 class="heading mb-6">{about.heading}</h2>
-      {about.paragraphs.map((p) => <p class="mb-4 text-[0.9rem] leading-[1.85] text-muted">{p}</p>)}
-      <p class="mt-2 font-display text-[1.1rem] italic text-accent-text">{about.signature}</p>
+      <h2 class="h-section mb-6 mt-4">{about.heading}</h2>
+      {about.paragraphs.map((p) => <p class="mb-4 leading-[1.8] text-ivory/80">{p}</p>)}
+      <p class="mt-6 text-[1.05rem] font-light italic text-champagne">— {about.signature}</p>
     </div>
   </div>
 </section>

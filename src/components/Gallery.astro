@@ -11,44 +11,54 @@ const items = await Promise.all(
 );
 ---
 
-<section id="gallery" class="section-pad bg-white">
+<section id="gallery" class="section-pad">
   <div class="container-x">
-    <div class="reveal mx-auto mb-14 max-w-[520px] text-center">
+    <div class="reveal mx-auto mb-12 max-w-[620px] text-center md:mb-16">
       <p class="label">{gallery.label}</p>
-      <div class="rule mx-auto my-4"></div>
-      <h2 class="heading">{gallery.heading}</h2>
+      <h2 class="h-section mt-4">{gallery.heading}</h2>
     </div>
 
-    <ul class="m-0 grid list-none grid-cols-2 gap-2 p-0 [grid-auto-flow:dense] md:grid-cols-4 md:gap-2.5">
-      {items.map((it, i) => (
-        <li class:list={['reveal-scale', it.tall && 'md:row-span-2']} style={`--d:${(i % 3) * 0.1}s`}>
-          <button
-            type="button"
-            data-lightbox-item
-            data-full={it.big}
-            data-alt={it.alt}
-            aria-label={`Phóng to ảnh ${i + 1}`}
-            class:list={[
-              'group relative block w-full cursor-zoom-in overflow-hidden bg-paper-alt',
-              it.tall ? 'aspect-square md:aspect-auto md:h-full' : 'aspect-square',
-            ]}
-          >
-            <Picture
-              src={it.src}
-              alt={it.alt}
-              inferSize
-              widths={[400, 800]}
-              sizes="(min-width: 768px) 25vw, 50vw"
-              formats={['avif', 'webp']}
-              fallbackFormat="jpeg"
-              loading="lazy"
-              pictureAttributes={{ class: 'block size-full' }}
-              class="size-full object-cover transition-transform duration-700 ease-[var(--ease-luxe)] group-hover:scale-105"
-            />
-          </button>
-        </li>
-      ))}
-    </ul>
+    <!-- Khung kính bao quanh toàn bộ lưới ảnh. Ảnh không bị làm mờ nên cuộn vẫn mượt. -->
+    <div class="glass rounded-[2rem] p-2.5 md:p-4">
+      <ul class="m-0 grid list-none grid-cols-2 gap-2 p-0 [grid-auto-flow:dense] md:grid-cols-4 md:gap-3">
+        {items.map((it, i) => (
+          <li class:list={['reveal-scale', it.tall && 'md:row-span-2']} style={`--d:${(i % 4) * 0.08}s`}>
+            <button
+              type="button"
+              data-lightbox-item
+              data-full={it.big}
+              data-alt={it.alt}
+              aria-label={`Phóng to ảnh ${i + 1}`}
+              class:list={[
+                'group relative block w-full cursor-zoom-in overflow-hidden rounded-2xl bg-white/5',
+                it.tall ? 'aspect-square md:aspect-auto md:h-full' : 'aspect-square',
+              ]}
+            >
+              <Picture
+                src={it.src}
+                alt={it.alt}
+                inferSize
+                widths={[400, 800]}
+                sizes="(min-width: 768px) 24vw, 48vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="jpeg"
+                loading="lazy"
+                pictureAttributes={{ class: 'block size-full' }}
+                class="size-full object-cover transition-transform duration-700 ease-[var(--ease-luxe)] group-hover:scale-105"
+              />
+              <span
+                aria-hidden="true"
+                class="glass-nav absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-full opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+              >
+                <svg viewBox="0 0 24 24" class="size-4 fill-none stroke-ivory stroke-[1.6]" stroke-linecap="round">
+                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path>
+                </svg>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -69,13 +79,13 @@ const items = await Promise.all(
 <style>
   .lightbox {
     border: 0;
-    padding: 24px;
+    padding: 20px;
     width: 100%;
     height: 100%;
     max-width: 100vw;
     max-height: 100dvh;
     background: transparent;
-    color: #fff;
+    color: var(--color-ivory);
   }
   .lightbox[open] {
     display: flex;
@@ -83,47 +93,59 @@ const items = await Promise.all(
     justify-content: center;
   }
   .lightbox::backdrop {
-    background: rgb(26 26 26 / 0.95);
-    backdrop-filter: blur(20px);
+    background: rgb(15 10 11 / 0.82);
+    backdrop-filter: blur(22px) saturate(120%);
+    -webkit-backdrop-filter: blur(22px) saturate(120%);
   }
   .lb-img {
-    max-width: 90vw;
-    max-height: 85dvh;
+    max-width: min(92vw, 1100px);
+    max-height: 84dvh;
     width: auto;
     height: auto;
     object-fit: contain;
+    border-radius: 1.25rem;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    box-shadow: 0 30px 90px rgb(0 0 0 / 0.6);
   }
   .lb-btn {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: none;
-    border: 1px solid rgb(255 255 255 / 0.25);
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    background: rgb(26 18 18 / 0.88);
+    border: 1px solid rgb(255 255 255 / 0.22);
     cursor: pointer;
-    transition: border-color 0.3s;
+    transition: background 0.3s, transform 0.3s var(--ease-luxe);
   }
-  .lb-btn:hover { border-color: rgb(255 255 255 / 0.7); }
+  .lb-btn:hover { background: rgb(60 44 44 / 0.95); transform: scale(1.06); }
   .lb-btn svg {
     width: 20px;
     height: 20px;
-    stroke: rgb(255 255 255 / 0.8);
-    stroke-width: 1.5;
+    stroke: var(--color-ivory);
+    stroke-width: 1.6;
     fill: none;
   }
-  .lb-close { top: 24px; right: 24px; width: 44px; height: 44px; }
-  .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); width: 48px; height: 48px; }
-  .lb-prev { left: 16px; }
-  .lb-next { right: 16px; }
+  .lb-close { top: 18px; right: 18px; }
+  .lb-prev, .lb-next { top: 50%; margin-top: -24px; }
+  .lb-prev { left: 14px; }
+  .lb-next { right: 14px; }
+  .lb-prev:hover, .lb-next:hover { transform: scale(1.06); }
   .lb-counter {
     position: absolute;
-    bottom: 24px;
+    bottom: 22px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: rgb(255 255 255 / 0.6);
     margin: 0;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: rgb(26 18 18 / 0.88);
+    border: 1px solid rgb(255 255 255 / 0.18);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: rgb(247 240 230 / 0.85);
   }
 </style>
 
