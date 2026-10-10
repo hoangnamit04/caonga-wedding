@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+import { site, images } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = site.title, description = site.description } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: site.name,
+  description: 'Dịch vụ trang trí tiệc cưới cao cấp tại Bình Định',
+  telephone: site.phone,
+  image: images.hero,
+  sameAs: [site.facebook, site.instagram, site.tiktok].filter(Boolean),
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.city,
+    addressCountry: 'VN',
+  },
+};
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#2c2825" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={images.hero} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Đánh dấu có JS trước khi vẽ trang, để hiệu ứng cuộn chỉ bật khi JS chạy -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

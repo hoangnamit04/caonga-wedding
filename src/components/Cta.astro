@@ -1,0 +1,26 @@
+---
+import { cta, site } from '../data/site';
+---
+
+<section id="contact" class="section-pad bg-paper-alt text-center">
+  <div class="container-x">
+    <div class="reveal mx-auto max-w-[560px]">
+      <p class="label">{cta.label}</p>
+      <div class="rule mx-auto my-4"></div>
+      <h2 class="heading mb-4 text-[clamp(1.6rem,3vw,2.6rem)]">{cta.heading}</h2>
+      <p class="mb-10 text-[0.9rem] leading-[1.7] text-muted">{cta.text}</p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href={`tel:${site.phone}`} class="btn">Gọi Ngay: {site.phoneDisplay}</a>
+        <a
+          href={site.zalo}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border border-accent-text px-10 py-4 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-accent-text transition hover:bg-accent-text hover:text-white"
+        >
+          Nhắn Zalo
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+import { Picture } from 'astro:assets';
+import { about, images } from '../data/site';
+---
+
+<section id="about" class="section-pad overflow-x-clip bg-paper">
+  <div class="container-x grid items-center gap-12 md:grid-cols-[3fr_2fr] md:gap-20">
+    <div class="reveal-left relative">
+      <Picture
+        src={images.about}
+        alt={about.alt}
+        inferSize
+        widths={[480, 800, 1100]}
+        sizes="(min-width: 768px) 55vw, 100vw"
+        formats={['avif', 'webp']}
+        fallbackFormat="jpeg"
+        loading="lazy"
+        class="aspect-[4/5] w-full object-cover"
+      />
+      <Picture
+        src={images.aboutFloat}
+        alt={about.altFloat}
+        inferSize
+        widths={[300, 500, 700]}
+        sizes="(min-width: 768px) 25vw, 0px"
+        formats={['avif', 'webp']}
+        fallbackFormat="jpeg"
+        loading="lazy"
+        pictureAttributes={{
+          class:
+            'absolute -bottom-8 -right-8 hidden w-[48%] border-[6px] border-paper shadow-[0_20px_60px_rgb(0_0_0/0.08)] md:block',
+        }}
+        class="aspect-[4/3] w-full object-cover"
+      />
+    </div>
+
+    <div class="reveal-right max-w-[440px]">
+      <p class="label">{about.label}</p>
+      <div class="rule my-4"></div>
+      <h2 class="heading mb-6">{about.heading}</h2>
+      {about.paragraphs.map((p) => <p class="mb-4 text-[0.9rem] leading-[1.85] text-muted">{p}</p>)}
+      <p class="mt-2 font-display text-[1.1rem] italic text-accent-text">{about.signature}</p>
+    </div>
+  </div>
+</section>

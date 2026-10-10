@@ -1,0 +1,61 @@
+---
+import { stats } from '../data/site';
+---
+
+<section class="border-b border-black/5 bg-white" aria-label="Con số nổi bật">
+  <div class="container-x">
+    <dl class="flex flex-wrap">
+      {stats.map((s, i) => (
+        <div
+          class="reveal relative flex flex-[1_1_50%] flex-col-reverse px-6 py-9 text-center md:flex-[1_1_25%] md:py-11 [&:not(:last-child)]:after:absolute [&:not(:last-child)]:after:right-0 [&:not(:last-child)]:after:top-[28%] [&:not(:last-child)]:after:h-[44%] [&:not(:last-child)]:after:w-px [&:not(:last-child)]:after:bg-black/10 [&:not(:last-child)]:after:content-[''] max-md:[&:nth-child(2)]:after:hidden"
+          style={`--d:${0.08 + i * 0.12}s`}
+        >
+          <dt class="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-muted">
+            {s.label}
+          </dt>
+          <!-- Số cuối cùng có sẵn trong HTML. Hiệu ứng đếm chỉ chạy khi JS bật. -->
+          <dd
+            class="m-0 font-display text-[clamp(2rem,3.5vw,2.8rem)] leading-tight tracking-[-0.02em] text-ink"
+            data-count={s.value}
+            data-suffix={s.suffix}
+          >
+            {s.value.toLocaleString('vi-VN')}{s.suffix}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animate(el: HTMLElement) {
+    const target = Number(el.dataset.count);
+    const suffix = el.dataset.suffix ?? '';
+    const duration = 1800;
+    const start = performance.now();
+
+    function tick(now: number) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target).toLocaleString('vi-VN') + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (!reduce) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          io.unobserve(entry.target);
+          animate(entry.target as HTMLElement);
+        }
+      },
+      { threshold: 0.5 },
+    );
+    document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => io.observe(el));
+  }
+</script>

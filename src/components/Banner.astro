@@ -1,0 +1,60 @@
+---
+import { Picture } from 'astro:assets';
+import { banner, images } from '../data/site';
+---
+
+<section id="banner" class="banner relative h-[50vh] min-h-[340px] overflow-hidden">
+  <Picture
+    src={images.banner}
+    alt={banner.alt}
+    inferSize
+    widths={[640, 1024, 1600, 2200]}
+    sizes="100vw"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpeg"
+    loading="lazy"
+    pictureAttributes={{ class: 'block size-full' }}
+    class="banner__img size-full object-cover [object-position:center_30%]"
+  />
+  <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-ink/10 to-ink/45 p-6 text-center">
+    <p class="banner__text max-w-[580px] font-display text-[clamp(1.3rem,2.8vw,2.2rem)] font-light italic leading-[1.45] tracking-[0.01em] text-white">
+      {banner.text}
+    </p>
+  </div>
+</section>
+
+<style>
+  .banner__img {
+    transition: transform 8s var(--ease-luxe);
+  }
+  :global(.js) .banner__text {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 1s var(--ease-luxe) 0.2s, transform 1s var(--ease-luxe) 0.2s;
+  }
+  .banner.in-view .banner__img { transform: scale(1.05); }
+  :global(.js) .banner.in-view .banner__text {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .banner__img { transition: none; }
+    .banner.in-view .banner__img { transform: none; }
+    :global(.js) .banner__text { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const el = document.getElementById('banner');
+  if (el) {
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        el.classList.add('in-view');
+        io.disconnect();
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+  }
+</script>

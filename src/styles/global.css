@@ -1,0 +1,126 @@
+@import "tailwindcss";
+@import "@fontsource-variable/cormorant-garamond/wght.css";
+@import "@fontsource-variable/cormorant-garamond/wght-italic.css";
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+
+@theme {
+  --color-ink: #1a1a1a;
+  --color-paper: #fafafa;
+  --color-paper-alt: #f5f5f0;
+  --color-night: #2c2825;
+  --color-body: #3a3a3a;
+  /* Đã làm đậm hơn bản cũ để chữ nhỏ đạt chuẩn tương phản AA */
+  --color-muted: #66625d;
+  --color-accent: #8b7355;
+  --color-accent-light: #a89070;
+  --color-accent-text: #75603f;
+  --font-display: "Cormorant Garamond Variable", Georgia, serif;
+  --font-sans: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    scroll-padding-top: 72px;
+  }
+  @media (min-width: 1024px) {
+    html { font-size: 17px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-body);
+    background: var(--color-paper);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .container-x {
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  @media (min-width: 768px) { .container-x { padding-inline: 48px; } }
+  @media (min-width: 1280px) { .container-x { padding-inline: 32px; } }
+
+  .section-pad { padding-block: 80px; }
+  @media (min-width: 768px) { .section-pad { padding-block: 120px; } }
+
+  .label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+  .heading {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+  }
+  .rule {
+    width: 40px;
+    height: 1px;
+    background: var(--color-accent);
+  }
+  .btn {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--color-accent-text);
+    padding: 16px 40px;
+    transition: transform 0.4s var(--ease-luxe), background 0.4s var(--ease-luxe), box-shadow 0.4s var(--ease-luxe);
+  }
+  .btn:hover {
+    background: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgb(139 115 85 / 0.25);
+  }
+}
+
+/* Hiệu ứng xuất hiện khi cuộn. Chỉ ẩn nội dung khi JS đã chạy,
+   nên người dùng tắt JS và bot tìm kiếm vẫn thấy đầy đủ. */
+.js .reveal,
+.js .reveal-left,
+.js .reveal-right,
+.js .reveal-scale {
+  opacity: 0;
+  transition:
+    opacity 0.8s var(--ease-luxe) var(--d, 0s),
+    transform 0.8s var(--ease-luxe) var(--d, 0s);
+}
+.js .reveal { transform: translateY(24px); }
+.js .reveal-left { transform: translateX(-40px); }
+.js .reveal-right { transform: translateX(40px); }
+.js .reveal-scale { transform: scale(0.95); }
+.js .is-visible { opacity: 1 !important; transform: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal,
+  .js .reveal-left,
+  .js .reveal-right,
+  .js .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

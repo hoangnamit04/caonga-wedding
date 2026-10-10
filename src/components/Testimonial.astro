@@ -1,0 +1,33 @@
+---
+import { Picture } from 'astro:assets';
+import { testimonial, images } from '../data/site';
+---
+
+<section class="section-pad bg-night">
+  <div class="container-x">
+    <figure class="reveal m-0 grid items-center gap-10 md:grid-cols-2 md:gap-20">
+      <div>
+        <div aria-hidden="true" class="mb-2 font-display text-[4rem] leading-none text-accent-light/70">&ldquo;</div>
+        <blockquote class="m-0 mb-7 font-display text-[clamp(1.15rem,2.2vw,1.5rem)] font-light italic leading-[1.65] text-white/85">
+          {testimonial.quote}
+        </blockquote>
+        <figcaption>
+          <p class="mb-1 text-[0.85rem] font-medium tracking-[0.06em] text-white">{testimonial.name}</p>
+          <p class="text-[0.72rem] uppercase tracking-[0.1em] text-accent-light">{testimonial.detail}</p>
+        </figcaption>
+      </div>
+      <Picture
+        src={images.testimonial}
+        alt={testimonial.alt}
+        inferSize
+        widths={[400, 640, 900]}
+        sizes="(min-width: 768px) 45vw, 0px"
+        formats={['avif', 'webp']}
+        fallbackFormat="jpeg"
+        loading="lazy"
+        pictureAttributes={{ class: 'hidden md:block' }}
+        class="aspect-[4/5] w-full object-cover"
+      />
+    </figure>
+  </div>
+</section>

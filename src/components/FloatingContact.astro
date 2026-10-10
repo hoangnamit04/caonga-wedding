@@ -1,0 +1,34 @@
+---
+import { site } from '../data/site';
+
+const buttons = [
+  { label: 'Chat Zalo', href: site.zalo, external: true, bg: 'bg-[#0068ff]', text: 'Zalo' },
+  { label: 'Nhắn Messenger', href: site.messenger, external: true, bg: 'bg-[#0084ff]', text: '' },
+  { label: 'Gọi điện', href: `tel:${site.phone}`, external: false, bg: 'bg-accent-text', text: '' },
+];
+---
+
+<aside class="fixed bottom-5 right-4 z-[900] flex flex-col gap-3 md:bottom-8 md:right-6" aria-label="Liên hệ nhanh">
+  {buttons.map((b, i) => (
+    <a
+      href={b.href}
+      aria-label={b.label}
+      title={b.label}
+      target={b.external ? '_blank' : undefined}
+      rel={b.external ? 'noopener noreferrer' : undefined}
+      class={`flex size-12 items-center justify-center rounded-full text-white shadow-[0_6px_20px_rgb(0_0_0/0.25)] transition hover:-translate-y-0.5 ${b.bg}`}
+    >
+      {i === 0 && <span class="text-[0.7rem] font-medium tracking-wide">Zalo</span>}
+      {i === 1 && (
+        <svg viewBox="0 0 24 24" class="size-6" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.9 1.45 5.48 3.72 7.17V22l3.4-1.87c.9.25 1.86.39 2.88.39 5.52 0 10-4.14 10-9.27S17.52 2 12 2zm1.1 12.45-2.55-2.72-4.97 2.72 5.47-5.8 2.6 2.72 4.92-2.72-5.47 5.8z" />
+        </svg>
+      )}
+      {i === 2 && (
+        <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" />
+        </svg>
+      )}
+    </a>
+  ))}
+</aside>
